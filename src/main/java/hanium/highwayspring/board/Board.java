@@ -28,15 +28,11 @@ public class Board {
     private String title;
     private String content;
     private Long category;
+    private Boolean accept;
     @ManyToOne
     @JoinColumn(name = "userId")
     @JsonIgnore
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "schoolId")
-    @JsonIgnore
-    private School school;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

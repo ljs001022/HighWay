@@ -27,15 +27,8 @@ public class BoardService {
         }
     }
 
-    // select
-    public List<Board> retrieve(final Long userNo) {
-        log.info("Entity userId : {} is find.", userNo);
-        List<Board> boards = boardRepository.findByUserId(userNo);
-        return boardRepository.findByUserId(userNo);
-    }
-
     public List<Board> boardList(Long schoolNo) {
-        List<Board> boards = boardRepository.findBySchoolId(schoolNo);
+        List<Board> boards = boardRepository.findAll();
         return boards;
     }
 
@@ -46,7 +39,7 @@ public class BoardService {
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         validate(board);
         board.updateBoard(dto);
-        return retrieve(board.getUser().getId());
+        return boardList(board.getUser().getSchool());
     }
 
     // delete
@@ -59,7 +52,7 @@ public class BoardService {
             log.error("error deleting entity ", board.getId(), e);
             throw new RuntimeException("error deleteing entity " + board.getId());
         }
-        return retrieve(board.getUser().getId());
+        return boardList(board.getUser().getSchool());
     }
 
     // 리팩토링하나 메서드

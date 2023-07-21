@@ -30,7 +30,6 @@ public class Comment {
     @JoinColumn(name = "userId")
     @JsonIgnore
     private User user;
-    //private String userId;
 
     @ColumnDefault("FALSE")
     @Column(nullable = false)
