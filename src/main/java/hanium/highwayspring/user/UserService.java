@@ -2,7 +2,6 @@ package hanium.highwayspring.user;
 
 import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.config.res.TokenResponse;
-import hanium.highwayspring.config.res.UserRequest;
 import hanium.highwayspring.auth.Auth;
 import hanium.highwayspring.auth.AuthRepository;
 import hanium.highwayspring.config.jwt.JwtTokenProvider;
@@ -32,14 +31,13 @@ public class UserService {
     }
 
     public TokenResponse register(User u) {
-        log.info(u.getUid());
+        log.info(u.getPass());
         User user = User.builder()
                 .uid(u.getUid())
-                .pwd(passwordEncoder.encode(u.getPwd()))
+                .pass(passwordEncoder.encode(u.getPass()))
                 .name(u.getName())
-                .email(u.getEmail())
-                .gender(u.getGender())
-                .age(u.getAge())
+                .grade(u.getGrade())
+                .number(u.getNumber())
                 .role(u.getRole())
                 .build();
         userRepository.save(user);
@@ -65,7 +63,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         Auth auth = authRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Token 이 존재하지 않습니다."));
-        if (!passwordEncoder.matches(userRequest.getUserPw(), user.getPwd())) {
+        if (!passwordEncoder.matches(userRequest.getUserPw(), user.getPass())) {
             throw new Exception("비밀번호가 일치하지 않습니다.");
         }
 

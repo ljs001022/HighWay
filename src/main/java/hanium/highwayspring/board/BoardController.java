@@ -4,7 +4,6 @@ import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.school.School;
 import hanium.highwayspring.school.SchoolService;
 import hanium.highwayspring.user.User;
-import hanium.highwayspring.user.UserDTO;
 import hanium.highwayspring.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

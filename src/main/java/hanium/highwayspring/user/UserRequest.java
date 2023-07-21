@@ -1,4 +1,4 @@
-package hanium.highwayspring.config.res;
+package hanium.highwayspring.user;
 
 import lombok.Data;
 
