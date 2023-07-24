@@ -7,6 +7,7 @@ import hanium.highwayspring.comment.Comment;
 import hanium.highwayspring.school.School;
 import hanium.highwayspring.user.User;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,6 +20,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
 public class Board {
@@ -27,8 +29,11 @@ public class Board {
     private Long id;            //이 오브젝트의 아이디
     private String title;
     private String content;
-    private Long category;
+    @Column(columnDefinition = "integer default 0")
+    private String type;
+    @Column(columnDefinition = "boolean default true")
     private Boolean accept;
+    private Long school;
     @ManyToOne
     @JoinColumn(name = "userId")
     @JsonIgnore
@@ -48,6 +53,8 @@ public class Board {
     public void updateBoard(BoardDTO dto){
         this.title = dto.getTitle();
         this.content = dto.getContent();
-        this.category = dto.getCategory();
+    }
+    public void acceptBoard(){
+        this.accept = true;
     }
 }

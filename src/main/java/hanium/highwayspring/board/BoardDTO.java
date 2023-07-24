@@ -15,7 +15,6 @@ public class BoardDTO {
 	private Long id;
 	private String title;
 	private String content;
-	private Long category;
 	private Boolean accept;
 
 	public static Board toEntity(final BoardDTO dto, final User user) {
@@ -23,8 +22,8 @@ public class BoardDTO {
 				.id(dto.getId())
 				.title(dto.getTitle())
 				.content(dto.getContent())
-				.category(dto.getCategory())
 				.user(user)
+				.school(user.getSchool())
 				.accept(dto.getAccept())
 				.build();
 	}

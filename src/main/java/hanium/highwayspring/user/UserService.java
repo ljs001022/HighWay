@@ -1,14 +1,13 @@
 package hanium.highwayspring.user;
 
-import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.config.res.TokenResponse;
 import hanium.highwayspring.auth.Auth;
 import hanium.highwayspring.auth.AuthRepository;
 import hanium.highwayspring.config.jwt.JwtTokenProvider;
+import hanium.highwayspring.user.dto.UserRequestDto;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,15 +29,11 @@ public class UserService {
         this.authRepository = authRepository;
     }
 
-    public TokenResponse register(User u) {
-        log.info(u.getPass());
+    public TokenResponse register(UserRequestDto u) {
         User user = User.builder()
                 .uid(u.getUid())
                 .pass(passwordEncoder.encode(u.getPass()))
                 .name(u.getName())
-                .grade(u.getGrade())
-                .number(u.getNumber())
-                .role(u.getRole())
                 .build();
         userRepository.save(user);
 
@@ -58,12 +53,12 @@ public class UserService {
     }
 
     @Transactional
-    public TokenResponse doLogin(UserRequest userRequest) throws Exception { //토큰 발급과 갱신을 수행
-        User user = userRepository.findByUid(userRequest.getUserId())
+    public TokenResponse doLogin(UserRequestDto userRequest) throws Exception { //토큰 발급과 갱신을 수행
+        User user = userRepository.findByUid(userRequest.getUid())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         Auth auth = authRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Token 이 존재하지 않습니다."));
-        if (!passwordEncoder.matches(userRequest.getUserPw(), user.getPass())) {
+        if (!passwordEncoder.matches(userRequest.getPass(), user.getPass())) {
             throw new Exception("비밀번호가 일치하지 않습니다.");
         }
 
@@ -127,36 +122,6 @@ public class UserService {
                 .build();
     }
 
-    public ResponseEntity findByToken(HttpServletRequest request) {
-        /*String accessToken = jwtTokenProvider.resolveAccessToken(request);
-        String refreshToken = jwtTokenProvider.resolveRefreshToken(request);
-        System.out.println("accessToken = " + accessToken);
-        System.out.println("refreshToken = " + refreshToken);*/
-        try {
-            /*Claims claimsFormToken = jwtTokenProvider.getClaimsFormToken(accessToken);
-            String userId = (String) claimsFormToken.get("userId");
-            Optional<User> user = userRepository.findByUid(userId);
-            UserDTO userDTO = UserDTO.toEntity(user);*/
-            return ResponseEntity.ok().body(getUserInfo(request));
-        } catch (Exception e) {
-            String error = e.getMessage();
-            ResponseDTO<UserDTO> response = ResponseDTO.fail("Error", error);
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
-
-    public UserDTO getUserInfo(HttpServletRequest request) {
-        String accessToken = jwtTokenProvider.resolveAccessToken(request);
-        String refreshToken = jwtTokenProvider.resolveRefreshToken(request);
-        System.out.println("accessToken = " + accessToken);
-        System.out.println("refreshToken = " + refreshToken);
-        Claims claimsFormToken = jwtTokenProvider.getClaimsFormToken(accessToken);
-        String userId = (String) claimsFormToken.get("userId");
-        Optional<User> user = userRepository.findByUid(userId);
-        UserDTO userDTO = UserDTO.toEntity(user);
-        return userDTO;
-    }
-
     public Optional<User> getUser(HttpServletRequest request) {
         String accessToken = jwtTokenProvider.resolveAccessToken(request);
         String refreshToken = jwtTokenProvider.resolveRefreshToken(request);
@@ -166,17 +131,5 @@ public class UserService {
         String userId = (String) claimsFormToken.get("userId");
         Optional<User> user = userRepository.findByUid(userId);
         return user;
-    }
-
-    public User findByUid(String uid){
-        return userRepository.findByUid(uid).orElseThrow(()-> new IllegalArgumentException("유저 정보가 없습니다."));
-    }
-
-    public Boolean idCheck(String id) {
-        Optional<User> user = userRepository.findByUid(id);
-        if (user.isEmpty() && id.length() > 0)
-            return true;
-        else
-            return false;
     }
 }

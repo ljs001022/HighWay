@@ -1,13 +1,14 @@
 package hanium.highwayspring.user;
 
 import hanium.highwayspring.config.res.ResponseDTO;
+import hanium.highwayspring.user.dto.UserRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RestController
 @Slf4j
 public class UserController {
@@ -19,13 +20,13 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/join")
-    public ResponseEntity join(@RequestBody User user) {
-        return ResponseEntity.ok(userService.register(user));
+    public ResponseDTO<?> join(@RequestBody UserRequestDto userRequestDto) {
+        return ResponseDTO.success(userService.register(userRequestDto));
     }
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserRequest userRequest) throws Exception {
+    public ResponseEntity login(@RequestBody UserRequestDto userRequest) throws Exception {
         return ResponseEntity.ok().body(userService.doLogin(userRequest));
     }
 
@@ -33,15 +34,5 @@ public class UserController {
     @PostMapping("/issue")
     public ResponseEntity issueAccessToken(HttpServletRequest request) throws Exception {
         return ResponseEntity.ok().body(userService.issueAccessToken(request));
-    }
-
-    @GetMapping("/info")
-    public ResponseEntity findUserAPI(HttpServletRequest request) {
-        return ResponseEntity.ok().body(userService.findByToken(request));
-    }
-
-    @GetMapping("/idCheck")
-      public ResponseDTO<?> IdCheck(@RequestParam("userId") String id) {
-        return ResponseDTO.success(userService.idCheck(id));
     }
 }
