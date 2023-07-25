@@ -49,6 +49,7 @@ public class UserService {
                 .ACCESS_TOKEN(accessToken)
                 .REFRESH_TOKEN(refreshToken)
                 .ACCESS_TOKEN_EXPIRATION(jwtTokenProvider.getTokenExpiration(accessToken))
+                .USER_NICK(user.getName())
                 .build();
     }
 
@@ -73,6 +74,7 @@ public class UserService {
                     .ACCESS_TOKEN(accessToken)
                     .REFRESH_TOKEN(refreshToken)
                     .ACCESS_TOKEN_EXPIRATION(jwtTokenProvider.getTokenExpiration(accessToken))
+                    .USER_NICK(user.getName())
                     .build();
         } else {
             //둘 다 새로 발급
@@ -85,6 +87,7 @@ public class UserService {
                 .ACCESS_TOKEN(accessToken)
                 .REFRESH_TOKEN(refreshToken)
                 .ACCESS_TOKEN_EXPIRATION(jwtTokenProvider.getTokenExpiration(accessToken))
+                .USER_NICK(user.getName())
                 .build();
     }
 
