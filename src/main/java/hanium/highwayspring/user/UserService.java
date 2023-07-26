@@ -1,5 +1,6 @@
 package hanium.highwayspring.user;
 
+import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.config.res.TokenResponse;
 import hanium.highwayspring.auth.Auth;
 import hanium.highwayspring.auth.AuthRepository;
@@ -125,14 +126,17 @@ public class UserService {
                 .build();
     }
 
-    public Optional<User> getUser(HttpServletRequest request) {
-        String accessToken = jwtTokenProvider.resolveAccessToken(request);
-        String refreshToken = jwtTokenProvider.resolveRefreshToken(request);
-        System.out.println("accessToken = " + accessToken);
-        System.out.println("refreshToken = " + refreshToken);
-        Claims claimsFormToken = jwtTokenProvider.getClaimsFormToken(accessToken);
-        String userId = (String) claimsFormToken.get("userId");
-        Optional<User> user = userRepository.findByUid(userId);
-        return user;
+    public ResponseDTO<User> getUser(HttpServletRequest request) {
+        try {
+            String accessToken = jwtTokenProvider.resolveAccessToken(request);
+            String refreshToken = jwtTokenProvider.resolveRefreshToken(request);
+            System.out.println("accessToken = " + accessToken);
+            System.out.println("refreshToken = " + refreshToken);
+            Claims claimsFormToken = jwtTokenProvider.getClaimsFormToken(accessToken);
+            String userId = (String) claimsFormToken.get("userId");
+            return ResponseDTO.success(userRepository.findByUid(userId).get());
+        }catch (Exception e){
+            return ResponseDTO.fail("ERROR_USER", e.getMessage());
+        }
     }
 }

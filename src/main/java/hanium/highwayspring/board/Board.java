@@ -27,13 +27,15 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            //이 오브젝트의 아이디
-    private String title;
     private String content;
+
+    //삭제여부 0 : 삭제안됨 1 : 삭제됨
     @Column(columnDefinition = "integer default 0")
-    private String type;
-    @Column(columnDefinition = "boolean default true")
-    private Boolean accept;
-    private Long school;
+    private Long isDeleted;
+    //0:승인대기 1:승인완료 2:승인반려
+    @Column(columnDefinition = "integer default 0")
+    private Long state;
+
     @ManyToOne
     @JoinColumn(name = "userId")
     @JsonIgnore
@@ -50,11 +52,15 @@ public class Board {
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
     private LocalDateTime modifiedDate;
 
-    public void updateBoard(BoardDTO dto){
-        this.title = dto.getTitle();
-        this.content = dto.getContent();
+    public void changeState(Long state){
+        this.state = state;
     }
-    public void acceptBoard(){
-        this.accept = true;
+
+    public void deleteBoard(){
+        this.isDeleted = 1L;
+    }
+
+    public void updateBoard(String content){
+        this.content = content;
     }
 }

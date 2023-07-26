@@ -13,18 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class BoardDTO {
 	private Long id;
-	private String title;
 	private String content;
-	private Boolean accept;
-
-	public static Board toEntity(final BoardDTO dto, final User user) {
-		return Board.builder()
-				.id(dto.getId())
-				.title(dto.getTitle())
-				.content(dto.getContent())
-				.user(user)
-				.school(user.getSchool())
-				.accept(dto.getAccept())
-				.build();
-	}
+	private Long state;
+	private String uname;
 }

@@ -24,8 +24,8 @@ public class CommentController {
 
     @PostMapping
     public ResponseDTO<?> createComment(CommentRequestDto requestDto, HttpServletRequest request) {
-        Optional<User> user = userService.getUser(request);
-        requestDto.setUserId(user.get());
+        User user = userService.getUser(request).getData();
+        requestDto.setUserId(user);
         return commentService.createComment(requestDto);
     }
 
