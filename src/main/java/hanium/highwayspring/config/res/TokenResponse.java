@@ -12,4 +12,6 @@ public class TokenResponse {
     private String REFRESH_TOKEN;
     private Date ACCESS_TOKEN_EXPIRATION;
     private String USER_NICK;
+    private Long USER_ROLE;
+    private Long SCHOOL_NO;
 }
