@@ -51,6 +51,8 @@ public class UserService {
                 .REFRESH_TOKEN(refreshToken)
                 .ACCESS_TOKEN_EXPIRATION(jwtTokenProvider.getTokenExpiration(accessToken))
                 .USER_NICK(user.getName())
+                .SCHOOL_NO(user.getSchool())
+                .USER_ROLE(user.getRole())
                 .build();
     }
 
