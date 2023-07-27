@@ -34,8 +34,13 @@ public class BoardController {
         return ResponseDTO.success(boardService.boardList(st));
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public ResponseDTO<?> updateBoard(BoardDTO dto) {
         return ResponseDTO.success((boardService.update(dto)));
+    }
+
+    @PutMapping("/delete")
+    public ResponseDTO<?> deleteBoard(BoardDTO dto) {
+        return ResponseDTO.success((boardService.delete(dto)));
     }
 }
