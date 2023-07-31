@@ -27,7 +27,7 @@ public class BoardService {
     }
 
     public List<Board> boardList(Long state) {
-        List<Board> boards = boardRepository.findAll();
+        List<Board> boards = boardRepository.findByState(state);
         return boards;
     }
 
