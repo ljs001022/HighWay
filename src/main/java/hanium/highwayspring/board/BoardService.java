@@ -58,19 +58,6 @@ public class BoardService {
         return boardList(1L);
     }
 
-    // 리팩토링하나 메서드
-    private void validate(final Board entity) {
-        if (entity == null) {
-            log.warn("Entity cannot be null.");
-            throw new RuntimeException("entity cannot be null.");
-        }
-
-        if (entity.getUser().getUid() == null) {
-            log.warn("Unkown user.");
-            throw new RuntimeException("Unknown user");
-        }
-    }
-
     public Board findById(Long boardId) {
         return boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
     }
