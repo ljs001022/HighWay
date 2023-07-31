@@ -1,14 +1,11 @@
 package hanium.highwayspring.board;
 
 import java.util.List;
-import java.util.Optional;
 
-import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.user.User;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
@@ -27,8 +24,20 @@ public class BoardService {
     }
 
     public List<Board> boardList(Long state) {
-        List<Board> boards = boardRepository.findByState(state);
-        return boards;
+        return boardRepository.findByState(state);
+    }
+
+    public List<Board> myboardList(User user){
+        return boardRepository.findByUserId(user.getId());
+    }
+
+    // accept
+    @Transactional
+    public List<Board> changeState(Long boardId, Long state) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+        board.changeState(state);
+        return boardList(0L);
     }
 
     // update
