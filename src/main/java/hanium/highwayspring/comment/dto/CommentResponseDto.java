@@ -1,6 +1,6 @@
-package hanium.highwayspring.comment;
+package hanium.highwayspring.comment.dto;
 
-import hanium.highwayspring.user.User;
+import hanium.highwayspring.comment.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

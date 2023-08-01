@@ -2,6 +2,7 @@ package hanium.highwayspring.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hanium.highwayspring.board.Board;
+import hanium.highwayspring.comment.dto.CommentRequestDto;
 import hanium.highwayspring.user.User;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;

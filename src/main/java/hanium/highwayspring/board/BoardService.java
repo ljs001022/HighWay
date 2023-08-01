@@ -2,6 +2,7 @@ package hanium.highwayspring.board;
 
 import java.util.List;
 
+import hanium.highwayspring.board.dto.BoardRequestDTO;
 import hanium.highwayspring.board.repository.BoardRepository;
 import hanium.highwayspring.user.User;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     // insert
-    public Board create(BoardDTO dto, User user) {
+    public Board create(BoardRequestDTO dto, User user) {
         Board board = Board.builder()
                 .content(dto.getContent())
                 .state(user.getRole()==1L?1L:0L)
@@ -43,7 +44,7 @@ public class BoardService {
 
     // update
     @Transactional
-    public List<Board> update(BoardDTO dto) {
+    public List<Board> update(BoardRequestDTO dto) {
         Board board = boardRepository.findById(dto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         board.updateBoard(dto.getContent());
@@ -52,15 +53,11 @@ public class BoardService {
 
     // delete
     @Transactional
-    public List<Board> delete(BoardDTO dto) {
+    public List<Board> delete(BoardRequestDTO dto) {
         Board board = boardRepository.findById(dto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         board.deleteBoard();
         return boardList(1L);
-    }
-
-    public Board findById(Long boardId) {
-        return boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
     }
 }
  

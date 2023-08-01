@@ -1,5 +1,6 @@
 package hanium.highwayspring.comment;
 
+import hanium.highwayspring.comment.dto.CommentRequestDto;
 import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.user.User;
 import hanium.highwayspring.user.UserService;
@@ -7,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 @RequestMapping("/comment")
 @RestController
