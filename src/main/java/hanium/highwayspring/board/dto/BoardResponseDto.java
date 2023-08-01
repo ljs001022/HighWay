@@ -1,4 +1,4 @@
-package hanium.highwayspring.board;
+package hanium.highwayspring.board.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,5 +1,6 @@
 package hanium.highwayspring.board;
 
+import hanium.highwayspring.board.dto.BoardRequestDTO;
 import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.user.User;
 import hanium.highwayspring.user.UserService;
@@ -21,7 +22,7 @@ public class BoardController {
     }
 
     @PostMapping("/create")
-    public ResponseDTO<?> createBoard(BoardDTO dto, HttpServletRequest request) {
+    public ResponseDTO<?> createBoard(BoardRequestDTO dto, HttpServletRequest request) {
         User user = userService.getUser(request).getData();
         return ResponseDTO.success(boardService.create(dto, user));
     }
@@ -42,12 +43,12 @@ public class BoardController {
     }
 
     @PutMapping("/update")
-    public ResponseDTO<?> updateBoard(BoardDTO dto) {
+    public ResponseDTO<?> updateBoard(BoardRequestDTO dto) {
         return ResponseDTO.success((boardService.update(dto)));
     }
 
     @PutMapping("/delete")
-    public ResponseDTO<?> deleteBoard(BoardDTO dto) {
+    public ResponseDTO<?> deleteBoard(BoardRequestDTO dto) {
         return ResponseDTO.success((boardService.delete(dto)));
     }
 }

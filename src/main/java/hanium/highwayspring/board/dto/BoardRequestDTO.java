@@ -1,6 +1,4 @@
-package hanium.highwayspring.board;
-import hanium.highwayspring.school.School;
-import hanium.highwayspring.user.User;
+package hanium.highwayspring.board.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BoardDTO {
+public class BoardRequestDTO {
 	private Long id;
 	private String content;
 	private Long state;
