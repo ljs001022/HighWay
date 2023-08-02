@@ -3,11 +3,15 @@ package hanium.highwayspring.board;
 import java.util.List;
 
 import hanium.highwayspring.board.dto.BoardRequestDTO;
+import hanium.highwayspring.board.dto.BoardResponseDto;
 import hanium.highwayspring.board.repository.BoardRepository;
 import hanium.highwayspring.user.User;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
@@ -25,12 +29,16 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    public List<Board> myboardList(User user){
+        return boardRepository.findByUserId(user.getId());
+    }
+
     public List<Board> boardList(Long state) {
         return boardRepository.findByState(state);
     }
 
-    public List<Board> myboardList(User user){
-        return boardRepository.findByUserId(user.getId());
+    public Slice<BoardResponseDto> boardPage(Pageable pageable){
+        return boardRepository.getBoardSlice(pageable);
     }
 
     // accept

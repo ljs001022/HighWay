@@ -5,6 +5,7 @@ import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.user.User;
 import hanium.highwayspring.user.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,11 @@ public class BoardController {
     @GetMapping("/list/{state}")
     public ResponseDTO<?> getBoardList(@PathVariable(name = "state") Long st) {
         return ResponseDTO.success(boardService.boardList(st));
+    }
+
+    @GetMapping("/pageList")
+    public ResponseDTO<?> getBoardPage(Pageable pageable) {
+        return ResponseDTO.success(boardService.boardPage(pageable));
     }
 
     @PutMapping("/changeState/{boardId}")
