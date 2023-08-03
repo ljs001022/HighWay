@@ -36,6 +36,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                 .innerJoin(user)
                 .on(board.user.eq(user))
                 .where(board.state.eq(1L))
+                .where(board.isDeleted.eq(0L))
                 .orderBy(board.createDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1)
