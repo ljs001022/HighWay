@@ -56,7 +56,7 @@ public class BoardService {
         Board board = boardRepository.findById(dto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         board.updateBoard(dto.getContent());
-        return boardList(1L);
+        return boardList(dto.getState());
     }
 
     // delete
@@ -65,7 +65,7 @@ public class BoardService {
         Board board = boardRepository.findById(dto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
         board.deleteBoard();
-        return boardList(1L);
+        return boardList(dto.getState());
     }
 }
  
