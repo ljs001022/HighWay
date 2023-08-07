@@ -35,4 +35,9 @@ public class UserController {
     public ResponseEntity issueAccessToken(HttpServletRequest request) throws Exception {
         return ResponseEntity.ok().body(userService.issueAccessToken(request));
     }
+
+    @GetMapping("/api/check")
+    public ResponseDTO<?> ApiCheck(){
+        return ResponseDTO.success(true);
+    }
 }
