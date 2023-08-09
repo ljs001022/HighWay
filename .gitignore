@@ -43,3 +43,4 @@ src/main/generated/hanium/highwayspring/review/QReview.java
 src/main/generated/hanium/highwayspring/school/QSchool.java
 src/main/generated/hanium/highwayspring/tag/QTag.java
 src/main/generated/hanium/highwayspring/user/QUser.java
+*.java

@@ -2,8 +2,8 @@ package hanium.highwayspring.user;
 
 import hanium.highwayspring.config.res.ResponseDTO;
 import hanium.highwayspring.config.res.TokenResponse;
-import hanium.highwayspring.auth.Auth;
-import hanium.highwayspring.auth.AuthRepository;
+import hanium.highwayspring.user.auth.Auth;
+import hanium.highwayspring.user.auth.AuthRepository;
 import hanium.highwayspring.config.jwt.JwtTokenProvider;
 import hanium.highwayspring.user.dto.UserRequestDto;
 import io.jsonwebtoken.Claims;

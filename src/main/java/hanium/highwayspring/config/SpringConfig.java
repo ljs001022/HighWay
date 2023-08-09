@@ -1,6 +1,6 @@
 package hanium.highwayspring.config;
 
-import hanium.highwayspring.auth.AuthRepository;
+import hanium.highwayspring.user.auth.AuthRepository;
 import hanium.highwayspring.board.repository.BoardRepository;
 import hanium.highwayspring.board.BoardService;
 import hanium.highwayspring.comment.repository.CommentRepository;
